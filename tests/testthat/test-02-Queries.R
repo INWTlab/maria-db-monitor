@@ -1,10 +1,14 @@
 context("Queries")
 
 checkConnection <- function() {
-  if (testConnection(genSQLCred()) == FALSE) {
+  if (dbtools::testConnection(genSQLCred()) == FALSE) {
     skip("No database connection available.")
   }
 }
+
+source(
+  system.file("app/cnf.R", package = "INWTdbMonitor", mustWork = TRUE)
+)
 
 test_that("qryEventData", {
   checkConnection()

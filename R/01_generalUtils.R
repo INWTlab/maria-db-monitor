@@ -377,10 +377,9 @@ bufferReads <- function(serverVars) {
 #'
 #' @export
 cleanVarList <- function(varList) {
-
   varList %>%
-    select(-DATETIME)
-
+    select(-DATETIME) %>%
+    dplyr::arrange_("VARIABLE_NAME")
 }
 
 #' clean global vars for log write statistic
