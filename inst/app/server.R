@@ -478,7 +478,7 @@ shinyServer(function(input, output, session) {
   # visualisations ---------------------------------
   # Visualisation of Process over time
   output$dygraphProcess <- renderDygraph({
-    dygraph(values$numUsers) %>%
+    suppressWarnings(dygraph(values$numUsers)) %>%
       dyAxis("x", drawGrid = FALSE) %>%
       dyAxis("y", label = "Number", valueRange = c(0, serverVal(cleanVarList(innoDBstat()), "max_connections"))) %>%
       dyAxis("y2", label = "Megabyte", independentTicks = TRUE) %>%
@@ -499,9 +499,9 @@ shinyServer(function(input, output, session) {
       dyAxis("x", drawGrid = FALSE) %>%
       dyAxis("y", label = "Num/sec") %>%
       dyAxis("y2", label = "MB/sec", independentTicks = TRUE) %>%
-      dySeries("INNODB_LOG_WRITE_REQUESTS", fillGraph = TRUE, color = "#3F51B5") %>%
-      dySeries("LOG_WRITES", fillGraph = TRUE, color = "#2196F3") %>%
-      dySeries("LOG_WRITES_OS_MB", axis = 'y2', color = "#607D8B", strokeWidth = 3, strokePattern = "dashed") %>%
+      dySeries("innodb_log_write_requests", fillGraph = TRUE, color = "#3F51B5") %>%
+      dySeries("innodb_log_writes", fillGraph = TRUE, color = "#2196F3") %>%
+      dySeries("innodb_os_log_written", axis = 'y2', color = "#607D8B", strokeWidth = 3, strokePattern = "dashed") %>%
       dyOptions(includeZero = TRUE,
                 axisLineColor = "navy",
                 gridLineColor = "lightblue") %>%
@@ -516,9 +516,9 @@ shinyServer(function(input, output, session) {
       dyAxis("x", drawGrid = FALSE) %>%
       dyAxis("y", label = "Num/sec") %>%
       dyAxis("y2", label = "Num/sec", independentTicks = TRUE) %>%
-      dySeries("INNODB_BUFFER_POOL_READS", fillGraph = TRUE, color = "#3F51B5") %>%
-      dySeries("INNODB_BUFFER_POOL_READ_REQUESTS", fillGraph = TRUE, color = "#2196F3") %>%
-      dySeries("INNODB_BUFFER_POOL_WRITE_REQUESTS", axis = 'y2', color = "#607D8B", strokeWidth = 3, strokePattern = "dashed") %>%
+      dySeries("innodb_buffer_pool_reads", fillGraph = TRUE, color = "#3F51B5") %>%
+      dySeries("innodb_buffer_pool_read_requests", fillGraph = TRUE, color = "#2196F3") %>%
+      dySeries("innodb_buffer_pool_write_requests", axis = 'y2', color = "#607D8B", strokeWidth = 3, strokePattern = "dashed") %>%
       dyOptions(includeZero = TRUE,
                 axisLineColor = "navy",
                 gridLineColor = "lightblue") %>%

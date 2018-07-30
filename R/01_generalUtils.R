@@ -87,6 +87,7 @@ helperBufferWrite <- function(datOld, datNew) {
 #' @export
 helperDygraphDat <- function(.dat) {
   tmp <- .dat %>%
+    na.omit %>%
     select(DATETIME, VARIABLE_NAME, VARIABLE_VALUE_SEC) %>%
     spread(VARIABLE_NAME, VARIABLE_VALUE_SEC) %>%
     xts(., order.by = strptime(.$DATETIME, format = "%Y-%m-%d %H:%M:%S"), tzone = appDbTz)
