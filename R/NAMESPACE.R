@@ -1,27 +1,27 @@
-#' @importFrom googleVis gvisBarChart renderGvis gvisPieChart
-#' @importFrom humanFormat formatIECBytes
-#' @importFrom lubridate seconds_to_period
-#' @importFrom dygraphs dygraphOutput renderDygraph dygraph dyAxis
-#' dySeries dyOptions dyLegend dyRangeSelector dyHighlight
-#' @importFrom shiny runApp tag div tags fluidRow renderTable
-#' @importFrom shinydashboard dashboardHeader dashboardSidebar dashboardBody
-#' dashboardPage box sidebarMenu menuItem tabItem tabItems dropdownMenuOutput
-#' dropdownMenu sidebarSearchForm tabItem tabBox notificationItem
-#' @importFrom rhandsontable renderRHandsontable rhandsontable hot_col
-#' rHandsontableOutput hot_to_r
-#' @importFrom xts xts
-#' @importFrom DT datatable formatCurrency formatStyle dataTableOutput
-#'   styleColorBar styleInterval formatRound renderDataTable dataTableProxy
-#'   replaceData
 #' @importFrom dbtools Credentials sendQuery testConnection
-#' @importFrom tidyr spread gather_
-#' @importFrom RMySQL MySQL dbConnect dbDisconnect dbSendQuery
-#' dbFetch dbClearResult
 #' @importFrom dplyr arrange filter rename count cummean distinct_ filter first
 #'   funs group_by inner_join lag lead left_join matches mutate rowwise union
 #'   select slice summarise summarise_all
+#' @importFrom DT datatable formatCurrency formatStyle dataTableOutput
+#'   styleColorBar styleInterval formatRound renderDataTable dataTableProxy
+#'   replaceData
+#' @importFrom dygraphs dygraphOutput renderDygraph dygraph dyAxis dySeries
+#'   dyOptions dyLegend dyRangeSelector dyHighlight
+#' @importFrom googleVis gvisBarChart renderGvis gvisPieChart
+#' @importFrom humanFormat formatIECBytes
+#' @importFrom lubridate seconds_to_period
 #' @importFrom magrittr %>%
-
+#' @importFrom rhandsontable renderRHandsontable rhandsontable hot_col
+#'   rHandsontableOutput hot_to_r
+#' @importFrom RMySQL MySQL dbConnect dbDisconnect dbSendQuery dbFetch
+#'   dbClearResult
+#' @importFrom shiny runApp tag div tags fluidRow renderTable
+#' @importFrom shinydashboard dashboardHeader dashboardSidebar dashboardBody
+#'   dashboardPage box sidebarMenu menuItem tabItem tabItems dropdownMenuOutput
+#'   dropdownMenu sidebarSearchForm tabItem tabBox notificationItem
+#' @importFrom stats na.omit
+#' @importFrom tidyr spread gather_
+#' @importFrom xts xts
 NULL
 
 #' @export
