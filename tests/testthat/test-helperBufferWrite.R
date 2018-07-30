@@ -33,8 +33,8 @@ test_that("calc difference worked", {
   datDygraph <- helperDygraphDat(dat)
 
   expect_is(datDygraph, "xts")
+  expect_equal(datDygraph[[1]], "20")
   expect_equal(datDygraph[[2]], "20")
-  expect_equal(datDygraph[[4]], "20")
-  expect_equal(datDygraph[[6]], "70")
+  expect_equal(datDygraph[[3]], "70")
 
 })
