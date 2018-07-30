@@ -85,10 +85,10 @@ shinyServer(function(input, output, session) {
   })
 
   # if selection chages, update db-credentials
-  observeEvent(input$serverList,
-               {dbConfig$set(input$serverList)
-  }
-  )
+  ## observeEvent(input$serverList,
+  ##              {dbConfig$set(input$serverList)
+  ## }
+  ## )
 
   # create static values ---------------------------------
   output$buffTot <- renderText(ifelse(qryFlagTokuEngine() == 2,

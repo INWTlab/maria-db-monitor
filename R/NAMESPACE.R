@@ -10,16 +10,16 @@
 #' @importFrom rhandsontable renderRHandsontable rhandsontable hot_col
 #' rHandsontableOutput hot_to_r
 #' @importFrom xts xts
-#' @importFrom DT datatable formatCurrency formatStyle dataTableOutput styleColorBar
-#' styleInterval formatRound renderDataTable dataTableProxy replaceData
+#' @importFrom DT datatable formatCurrency formatStyle dataTableOutput
+#'   styleColorBar styleInterval formatRound renderDataTable dataTableProxy
+#'   replaceData
 #' @importFrom dbtools Credentials sendQuery testConnection
 #' @importFrom tidyr spread gather_
 #' @importFrom RMySQL MySQL dbConnect dbDisconnect dbSendQuery
 #' dbFetch dbClearResult
-#' @importFrom dplyr arrange filter rename
-#' count cummean distinct_ filter funs group_by inner_join lag lead
-#' left_join matches mutate rowwise union
-#' select slice summarise summarise_all
+#' @importFrom dplyr arrange filter rename count cummean distinct_ filter first
+#'   funs group_by inner_join lag lead left_join matches mutate rowwise union
+#'   select slice summarise summarise_all
 #' @importFrom magrittr %>%
 
 NULL
