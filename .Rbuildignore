@@ -2,3 +2,7 @@
 ^\.Rproj\.user$
 prepareRepo.R
 Dockerfile
+\.gitignore
+\.\.Rcheck
+\.git
+\.INWTdbMonitor

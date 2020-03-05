@@ -1,6 +1,6 @@
 Package: INWTdbMonitor
 Title: Monitor for MariaDB or MySQL
-Version: 0.9.0
+Version: 0.9.1
 Author: INWT Statistics GmbH
 Maintainer: INWT Statistics GmbH <martin.badicke@inwt-statistics.de>
 Description: Monitor for MariaDB Servers.

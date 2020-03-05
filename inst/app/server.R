@@ -530,7 +530,7 @@ shinyServer(function(input, output, session) {
   # PieCharts
   observe({
     input$serverList
-    output$plotBufferFree <- ifelse(qryFlagTokuEngine() == 2,
+    output$plotBufferFree <- ifelse(qryFlagTokuEngine() %in% 1:2,
                                     renderGvis({
                                       gvisBarChart(isolate(bufferDat(cleanVarList(innoDBstat()))), xvar = "engine",
                                                    yvar = c("Filled", "Free"),
@@ -546,7 +546,7 @@ shinyServer(function(input, output, session) {
                                                       serverValNum(cleanVarList(innoDBstat()))), "innodb_buffer_pool_pages_free")
                                       )
                                     })
-    )
+      )
   })
 
   observe({

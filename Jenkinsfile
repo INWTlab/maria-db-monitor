@@ -6,7 +6,6 @@ pipeline {
         CUR_PKG = 'INWTdbMonitor' // r-package name
         CUR_PKG_FOLDER = '.' // defaults to root
         INWT_REPO = 'inwt-vmdocker1.inwt.de:8081'
-        CREDENTIALS = credentials('maria-db-monitor-config')
     }
     stages {
         stage('Testing with R') {
@@ -14,6 +13,7 @@ pipeline {
             when { not { branch 'depl' } }
             environment {
                 TMP_SUFFIX = """${sh(returnStdout: true, script: 'echo `cat /dev/urandom | tr -dc \'a-z\' | fold -w 6 | head -n 1`')}"""
+                CREDENTIALS = credentials('maria-db-monitor-config')
             }
             steps {
                 sh '''
@@ -23,6 +23,7 @@ pipeline {
                 docker run --rm --network host tmp-$CUR_PROJ-$TMP_SUFFIX R CMD check --no-manual .
                 docker run --rm --network host -v $PWD/covr:/app/covr tmp-$CUR_PROJ-$TMP_SUFFIX Rscript -e "res <- covr::package_coverage(); covr::to_cobertura(res, filename = 'covr/coverage.xml')"
                 docker rmi tmp-$CUR_PROJ-$TMP_SUFFIX
+                rm -f .INWTdbMonitor/cnf.file
                 '''
             }
         }
@@ -44,11 +45,17 @@ pipeline {
         stage('Deploy Docker-image') {
             agent { label 'docker' }
             when  { branch 'master' }
+            environment {
+                CREDENTIALS = credentials('maria-db-monitor-config')
+            }
             steps {
                 sh '''
+                mkdir -p .INWTdbMonitor
+                cp -f $CREDENTIALS .INWTdbMonitor/cnf.file
                 docker build --pull -t $INWT_REPO/$CUR_PROJ:latest .
                 docker push $INWT_REPO/$CUR_PROJ:latest
                 docker rmi $INWT_REPO/$CUR_PROJ:latest
+                rm -f .INWTdbMonitor/cnf.file
                 '''
             }
         }

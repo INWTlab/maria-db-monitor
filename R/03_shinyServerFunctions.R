@@ -40,17 +40,51 @@ reloadBySchedule <- function(dat, schedule, session = getDefaultReactiveDomain()
   dat
 }
 
+#' fill engine TokuDB for bufferDat
+#'
+#' ...
+#'
+engineFillTokuDB <- function(dat) {
+  serverValNum(dat, c("tokudb_cachetable_size_current")) /
+                    serverValNum(dat, c("tokudb_cache_size"))
+}
+
+#' fill engine InnoDB for bufferDat
+#'
+#' ...
+#'
+engineFillInnoDB <- function(dat) {
+1 - (serverValNum(dat, c("innodb_buffer_pool_pages_free")) /
+                          serverValNum(dat, c("innodb_buffer_pool_pages_total")))
+}
+
+#' which engines for bufferDat are present
+#'
+#' ...
+#'
+enginePresent <- function(dat) {
+  if (length(engineFillTokuDB(dat)) != 0 & length(engineFillInnoDB(dat)) != 0) {
+    c("TokuDB", "InnoDB")
+  } else if (length(engineFillTokuDB(dat)) == 0 & length(engineFillInnoDB(dat)) != 0) {
+    "InnoDB"
+  } else if (length(engineFillTokuDB(dat)) != 0 & length(engineFillInnoDB(dat)) == 0) {
+    "TokuDB"
+  } else{
+    vector()
+  }
+}
+
+
 #' dataset with buffer statistic
 #'
 #' ...
 #'
 #' @export
-bufferDat <- function (dat) {
+bufferDat <- function(dat) {
   data.frame(
-    engine = c("TokuDB", "InnoDB"),
-    Filled = c(serverValNum(dat, c("tokudb_cachetable_size_current")) / serverValNum(dat, c("tokudb_cache_size")),
-               1 - (serverValNum(dat, c("innodb_buffer_pool_pages_free")) / serverValNum(dat, c("innodb_buffer_pool_pages_total"))))) %>%
-    mutate(Free = 1 - Filled)
+    engine = enginePresent(dat),
+    Filled = c(engineFillTokuDB(dat), engineFillInnoDB(dat))
+  ) %>% mutate(Free = 1 - Filled)
 }
 
 #' total buffer innodb + tokudb
@@ -58,10 +92,8 @@ bufferDat <- function (dat) {
 #' ...
 #'
 #' @export
-bufferTotDat <- function (dat) {
-  sum(serverValNum(dat, c("tokudb_cachetable_size_current")) / serverValNum(dat, c("tokudb_cache_size")) *
-        serverValNum(dat, "tokudb_cache_size"),
-      (1 - (serverValNum(dat, c("innodb_buffer_pool_pages_free")) / serverValNum(dat, c("innodb_buffer_pool_pages_total")))) *
-        serverValNum(dat, "KPI_bufPoolSize")
-      )
+bufferTotDat <- function(dat) {
+  sum(engineFillTokuDB(dat) * serverValNum(dat, "tokudb_cache_size"),
+      engineFillInnoDB(dat) * serverValNum(dat, "KPI_bufPoolSize")
+  )
 }
