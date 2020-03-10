@@ -21,7 +21,6 @@ pipeline {
                 cp -f $CREDENTIALS .INWTdbMonitor/cnf.file
                 docker build --pull -t tmp-$CUR_PROJ-$TMP_SUFFIX .
                 docker run --rm --network host tmp-$CUR_PROJ-$TMP_SUFFIX R CMD check --no-manual .
-                docker run --rm --network host -v $PWD/covr:/app/covr tmp-$CUR_PROJ-$TMP_SUFFIX Rscript -e "res <- covr::package_coverage(); covr::to_cobertura(res, filename = 'covr/coverage.xml')"
                 docker rmi tmp-$CUR_PROJ-$TMP_SUFFIX
                 rm -f .INWTdbMonitor/cnf.file
                 '''
@@ -59,20 +58,5 @@ pipeline {
                 '''
             }
         }
-    }
-    post {
-        always {
-            step([$class: 'CoberturaPublisher',
-                  autoUpdateHealth: false,
-                  autoUpdateStability: false,
-                  coberturaReportFile: 'covr/coverage.xml',
-                  failNoReports: false,
-                  failUnhealthy: false,
-                  failUnstable: false,
-                  maxNumberOfBuilds: 10,
-                  onlyStable: false,
-                  sourceEncoding: 'ASCII',
-                  zoomCoverageChart: false])
-         }
     }
 }
