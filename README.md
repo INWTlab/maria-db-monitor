@@ -1,5 +1,14 @@
-# MariaDB_Monitor
-Shiny App: MariaDB Monitor
+# MariaDB Monitor
+
+[![License](https://img.shields.io/github/license/INWTlab/ggCorpIdent.svg?color=%2393bb51&style=popout)](https://www.gnu.org/licenses/gpl-3.0)
+[![Twitter](https://img.shields.io/twitter/follow/INWT_Statistics.svg?label=Follow%20us%21&style=social)](https://twitter.com/INWT_Statistics)
+![Build](https://img.shields.io/badge/build-passing-%2393bb51.svg)
+
+## Shiny App: MariaDB Monitor
+
+The MariaDB Monitor is an INWT solution for monitoring and optimizing internal database infrastructure. 
+For the implementation of the solution the open source programming environment R was chosen in conjunction with the Shiny package. 
+We would be pleased about every participation in the further development.
 
 ![](http://www.inwt-statistics.de/files/INWT/images_blog/MariaDBAppHome.PNG)
 
